@@ -1,0 +1,18 @@
+% rule=
+rule=randi([0 1],[1 8]);
+
+[ph1,ph0p]=init_P(rule);
+phm=ph1;
+for i=1:1;
+size(phm) 
+phm=mergeblock(phm,ph1,ph0p,@plus);
+end
+phmsq=square(phm);
+imagesc(phmsq)
+%%
+K=1;
+ppm=exp(-K*phm);
+ppmsq=square(ppm);
+[psi,E]=eigs(ppmsq,1,'LM');
+% std(psi)
+ppmsq*psi./psi/E
