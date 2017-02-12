@@ -8,8 +8,12 @@ operh=@plus;
 [s0,s1,s2,s3]=ndgrid(spins,spins,spins,spins);
 svc=shiftdim(permute(cat(5,s0,s1,s2,s3),circshift(1:5,1)),-1);
 svl=circshift(svc,1,2);
+% svll=circshift(svc,2,2);
 svr=circshift(svc,-1,2);
+% svrr=circshift(svc,-2,2);
 rv=sum([svl;svc;svr].*2.^(0:2)',1);
+% rv=sum([svll;svl;svc;svr;svrr].*2.^(0:4)',1);
+
 rv=squeeze(rule(rv+1));
 
 siz1=size(rv);
