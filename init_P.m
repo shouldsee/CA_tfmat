@@ -11,7 +11,7 @@ svl=circshift(svc,1,2);
 % svll=circshift(svc,2,2);
 svr=circshift(svc,-1,2);
 % svrr=circshift(svc,-2,2);
-rv=sum([svl;svc;svr].*2.^(0:2)',1);
+rv=sum([svr;svc;svl].*2.^(0:2)',1);
 % rv=sum([svll;svl;svc;svr;svrr].*2.^(0:4)',1);
 
 rv=squeeze(rule(rv+1));
