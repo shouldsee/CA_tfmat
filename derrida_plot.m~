@@ -1,0 +1,25 @@
+%%  derrida plot
+N=1000;
+k=8;
+
+
+sys.rvct=2.^(0:2)';
+if ~od;
+sys.rule=eca_rule(randi([0 255]));
+else
+sys.rule=eca_rule(od);
+end    
+rs=randi([0 2^k-1],[N 2]);
+as=rs(:,1);
+bs=rs(:,2);
+avs=(dec2base(as,2,k))-'0';
+bvs=(dec2base(bs,2,k))-'0';
+
+fprintf('')
+
+avc=forward(avs,sys,2);
+bvc=forward(bvs,sys,2);
+
+h1=mean(xor(avs,bvs),2);
+h2=mean(xor(avc,bvc),2);
+histogram2(h1,h2);
