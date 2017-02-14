@@ -80,6 +80,7 @@ title(od)
 % xlim([0,1]);
 % ylim([0,1])
 % zlim([0 1])
+
 % view(-50,50)
 fprintf('%d\t%d\n',od,horizon)
 drawnow 
