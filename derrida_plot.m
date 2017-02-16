@@ -3,16 +3,21 @@ N=20000;
 k=30;
 % N=200;
 % k=50;
-hmax=50;
+
+% hmax=50;
+hmax=100;
+
 fh1=figure(1);
 set(fh1,'units','normalized','position',[.0 1 .4 .4]);
 f1=imagesc(zeros(hmax,hmax+5+k));
 caxis([0 1])
 colorbar
 
+%%lst of complex rules
+% lst=[9 18 22 25 30 41 45 54 60 61 62 67 86 89 90 97 103 105 106 107 110 118 120 121 122 124 126 129 131 135 137 145 146 147 149 150 151 153 161 165 169 182 183 193 195 225];
 
 try
-    gdir=[getenv('repos'),'/gallery/corrprofile/'];
+    gdir=[getenv('repos'),'/gallery/corrprofile/complex/'];
     sfig=1;
     mkdir(gdir);
 catch
@@ -49,11 +54,8 @@ while horizon<hmax;
     cvc=mean(xor(avc,bvc),2);
     avcnew=forward(avc,sys,2);
     bvcnew=forward(bvc,sys,2);
-    
-    
-
     histo(horizon,:)=avc(1,:);
-    cvs(horizon,:)=cvc;
+    cvs(horizon,:)=cvc;    
 if horizon~=hmax;
     avc=avcnew;
     bvc=bvcnew;

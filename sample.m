@@ -1,15 +1,21 @@
-function []=sample(f,n,fnum);
-mat=zeros(n,n);
+function [as,tsiz]=sample(sys);
+N=sys.N;
+k=sys.k;
+hmax=sys.hmax;
+adv=sys.adv;
+rdf=sys.rdf;
 
-svc=randi([0 1],[1 n]);
-for i=1:n
+siz=sys.sizf(sys);
+tsiz=[hmax siz];
+as=zeros([hmax prod(siz)]);
+ac=sys.rdf([1 siz]);
 
-mat(i,:)=svc;
-svl=circshift(svc,1,2);
-svr=circshift(svc,-1,2);
-svc=f(svl,svc,svr);
+for i=1:hmax;
+    as(i,:)=ac(:);
+    ac=sys.adv(ac,i);
+%     imagesc(squeeze(ac));
+%     pause
 end
-
-figure(fnum)
-imagesc(mat);
+% figure(sys.fnum)
+% imagesc(as);
 end
