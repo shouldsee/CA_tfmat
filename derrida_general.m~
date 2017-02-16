@@ -1,6 +1,6 @@
 %%  derrida plot
 N=3000;
-hmax=50;
+hmax=300;
 k=100;
 % familyname='sigmoid-matrix';
 familyname='2dtca';
@@ -22,8 +22,8 @@ sys.N=N;
 sys.hmax=hmax;
 sys.fnum=1;
 crit=@(odr) odr>0.4 && odr<0.8; 
-critname='0.5<odr<0.8';
-% critname='tst';
+% critname='0.5<odr<0.8';
+critname='tst1';
 
 
 % sys=change_adv(sys,'2dVlog',lst(1));
@@ -53,8 +53,9 @@ try
     sfig=1;
     mkdir(gdir);
     logfname=[gdir,'log.csv'];
-    fopen(logfname,'a');
-    header='canonical_name\tor\t\t\t\n';
+    logid=fopen(logfname,'a');
+    fprintf(logid,'print some thing here \n');
+    fprintf(logid,'%s\t%s\t%s\t\t\n','canonical_name','order','alias');
 catch
     sfig=0;
     fprintf('img storage:cannot find $repos in env or failed to create subfolder in $repos \n')
@@ -140,6 +141,7 @@ if ~silent && crit(ordernew);
 set(f1,'CData',[dmat, 0.5*ones(sys.hmax,5),histo]);
 alias=sprintf('%s-%s',sys.familyname,sys.alias);
 tl=sprintf('%4.3f-%s-%4.3d-order',ordernew,alias,od);
+
 title(f1.Parent,tl)
     if sfig
     frame = getframe(fnum);
@@ -149,6 +151,7 @@ title(f1.Parent,tl)
     end
 end
 
+fprintf(logid,'%d\t%s\t%s\t\t\n',od,ordernew,sys.alias);
 fprintf('%5.4d\t%d\t%f\t%f\n',od,horizon,ordernew,order)
 drawnow 
 end

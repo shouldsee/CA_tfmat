@@ -1,7 +1,7 @@
 %%  derrida plot
-N=3000;
-hmax=50;
-k=100;
+N=1000;
+hmax=200;
+k=200;
 % familyname='sigmoid-matrix';
 familyname='2dtca';
 fnum=1;
@@ -23,7 +23,8 @@ sys.hmax=hmax;
 sys.fnum=1;
 crit=@(odr) odr>0.4 && odr<0.8; 
 critname='0.5<odr<0.8';
-% critname='tst';
+crit=@(crit) true;
+critname='tst1';
 
 
 % sys=change_adv(sys,'2dVlog',lst(1));
