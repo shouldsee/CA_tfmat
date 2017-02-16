@@ -44,7 +44,7 @@ figure(1)
 imagesc(pdata(:,idx)')
 caxis([0 2])
 drawnow
-id
+id;
 % pause
 end 
 % figure(2)
