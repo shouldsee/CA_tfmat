@@ -130,8 +130,12 @@ end
 
 %% calculate and arrange the profile 
 d=pdist((cvs),'corr');
-ordernew=gather(mean(d));
-dmat=gather(squareform(d));
+d=max(max(d(:)),1)-d;
+stds=std(cvs,[],2);
+dmat=sqrt(squareform(d).*stds.*stds');
+d=triu(dmat);
+ordernew=gather(mean(d(:)));
+
 pdata=gather([dmat, 0.5*ones(sys.hmax,5),histo]);
 
 
@@ -141,8 +145,8 @@ if ~silent && crit(ordernew,d);
 set(f1,'CData',pdata);
 alias=sprintf('%s-%s',sys.familyname,sys.alias);
 tl=sprintf('%4.3f-%s-%4.3d-order',ordernew,alias,od);
-
 title(f1.Parent,tl)
+
     if sfig
     frame = getframe(fnum);
     fname=[gdir,tl,'_corrprofile.jpg'];
@@ -152,10 +156,10 @@ title(f1.Parent,tl)
 end
 
 fprintf(fopen(logfname,'a'),'%d\t%s\t%s\t\t\n',od,ordernew,sys.alias);
-% fprintf('%d\t%d\t%f\t%f\t%s\n',od,horizon,ordernew,order,sys.alias)
+fprintf('%d\t%d\t%f\t%f\t%s\n',od,horizon,ordernew,order,sys.alias)
+% hmap(2,cvs)
 drawnow 
 end
-
 if pau;
     fprintf('Paused, enter to continue \n');
     pause
