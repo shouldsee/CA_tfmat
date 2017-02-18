@@ -52,7 +52,7 @@ aspect=hmax/(k+5+hmax)+.2;
 ht=.6;
 set(fh1,'units','normalized','position',[.0 1 ht ht*aspect]);
 f1=imagesc(zeros(sys0.hmax,sys0.hmax+5+sys0.k));
-caxis([0 0.15])
+caxis([0 0.3])
 colorbar
 end
 
@@ -75,8 +75,8 @@ bvi=(sys0.rdf([N sys0.sizf(sys0)]));
 histo0=(repmat(avi(1,:),[hmax,1]));
 cvs0=(zeros(hmax,N));
 
-% for odi =1:numel(lst(:)); %% od for "override"
-parfor odi =1:numel(lst(:)); %% od for "override"
+for odi =1:numel(lst(:)); %% od for "override"
+% parfor odi =1:numel(lst(:)); %% od for "override"
     od=lst(odi);
     sys=sys0;
    sys=change_adv(sys,familyname,od);
