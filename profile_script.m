@@ -1,8 +1,7 @@
 profile off
 profile on
 
-
-% load('seq')
+load('seq')
 % load('seqidx')
 bchi0=bchi;
 sys0.critname='cov_seq_v0';

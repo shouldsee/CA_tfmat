@@ -12,6 +12,7 @@ outf=f.rstrip('.csv')+'_std.csv';
 
 from tst import *
 def tca2bs(rnum):
+	dict={'0':'1','1':'0'};
 	global normalise
 	r=bin(int(rnum));
 	r=r[:1:-1];
@@ -31,11 +32,14 @@ def tca2bs(rnum):
 		alias+='s';
 	if normalise and not alias[:2]==('b3'):
 		alias=invert(alias);
+		r=list(r);
+		tcaid=int(''.join([dict[x] for x in r]),2);
 	else:
 		# print(alias)
+		tcaid=rnum;
 		pass
 
-	return(alias)
+	return(alias,tcaid)
 
 print(tca2bs(6152))
 
@@ -65,7 +69,7 @@ def form(line):
 	coms+=com;	
 
 	rnum=int(rnum);
-	bsrule=tca2bs(rnum);
+	(bsrule,rnum)=tca2bs(rnum);
 	it=(rnum,bsrule,coms);
 	if gs:
 		gcoms='G*'
