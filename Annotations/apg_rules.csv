@@ -1,0 +1,49 @@
+b38s24578	G	245156
+b3468s0124678	GF	241496
+
+b368s24578	G	223560
+b38s12568	G	183560
+b3678s13567	Gepp	242001
+b3578s126	*G	239931
+
+
+b368s024578	GSl	224072
+#b3678s23	*LE	6600
+b358s3478	*Gs	241100
+b368s2457	*Gs	243109
+b367s03468	GF	176840
+
+source ~/python2/bin/activate
+##./apgmera1 -n 200000 -k puffersea --rule b38s24578
+
+source ~/python2/bin/activate
+./apgmera2 -n 200000 -k puffersea --rule b3468s0124678
+
+
+source ~/python2/bin/activate
+##./apgmera1 -n 200000 -k puffersea --rule b368s024578
+
+source ~/python2/bin/activate
+##./apgmera2 -n 200000 -k puffersea --rule b358s3478
+
+source ~/python2/bin/activate
+./apgmera3 -n 200000 -k puffersea --rule b368s2457
+
+source ~/python2/bin/activate
+##./apgmera4 -n 200000 -k puffersea --rule b367s03468
+
+
+
+
+
+source ~/python2/bin/activate
+./apgmera1 -n 200000 -k puffersea --rule b368s24578
+
+source ~/python2/bin/activate
+./apgmera2 -n 200000 -k puffersea --rule b38s12568
+
+source ~/python2/bin/activate
+./apgmera3 -n 200000 -k puffersea --rule b3678s13567
+
+source ~/python2/bin/activate
+./apgmera4 -n 200000 -k puffersea --rule b3578s126
