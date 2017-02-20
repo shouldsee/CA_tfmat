@@ -1,8 +1,0 @@
-function[]=hmap(axs,cvs);
-for i=1:5
-heatmap(axs{1},cvs(1,:),cvs(50,:))
-heatmap(axs{2},cvs(50,:),cvs(100,:))
-heatmap(axs{4},cvs(1,:),cvs(100,:))
-heatmap(axs{3},cvs(50,:),cvs(100,:))
-
-end

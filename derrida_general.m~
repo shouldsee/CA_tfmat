@@ -179,7 +179,7 @@ end
 
 fprintf(fopen(logfname,'a'),'%d\t%s\t%s\t\t\n',od,ordernew,sys.alias);
 fprintf('%d\t%d\t%d\t%f\t%f\t%s\n',odi,od,horizon,ordernew,order,sys.alias)
-% hmap(2,cvs,10,1);
+hmap(2,cvs,30,)
 drawnow 
 end
 if pau;

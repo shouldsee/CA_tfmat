@@ -8,7 +8,7 @@ dts=diff(ts);
 
 for i=2:lts;
     localincr=tdmethod(eof,dof,dts(i-1));
-    dof=dof+localincr;
+    dof=mod(dof+localincr,[1 0]);
 %     dof(1)=mod(dof(1),2*pi);
     dofs(:,:,i)=dof;
 end

@@ -1,6 +1,6 @@
 sys.N=1000;
 sys.hmax=200;
-sys.k=200;
+% sys.k=200;
 sys.familyname='2dtca';
 sys.fnum=1;
 sys.od=6152;

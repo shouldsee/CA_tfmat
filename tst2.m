@@ -6,10 +6,11 @@ lts=max(size(ts));
 dofs=zeros(max(size(dof0)),lts);
 tdmethod=@RK4;
 eof=@pendulum;
-% 
+% % 
 dofs(:,1)=dof0;
 dts=diff(ts);
 i0=2;
+
 %%
 for i=i0:lts;
     localincr=tdmethod(eof,dof,dts(i-1));
@@ -27,17 +28,17 @@ scatter3(ts,xs,ys);
 ylim([-1 1])
 zlim([-1 1])
 %%
-ts=linspace(0,10,1000);
-dof0=3*(rand(10,2)-0.5);
-dofs=odesolver(@pendulum,dof0,ts,@RK4);
-figure(1)
+ts=linspace(0,20,2000);
+dof0=5*(rand(10,2)-0.5);
+dofs=odesolver(@(x)pendulum2(x,0.0015),dof0,ts,@RK4);
+figure(2)
 % scatter(dofs(1,:),dofs(,2),3,'x');
 cla
-for i=1:5;
+for i=1:3;
     hold on
 xs=(dofs(i,1,:));
 ys=(dofs(i,2,:));
-scatter3(ts,xs,ys,3,'x');
+scatter3(1:length(ts),xs,ys,3,'x');
 end
 % ylim([-1,1])
 % zlim([-1 1])

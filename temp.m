@@ -5,6 +5,11 @@ sys.k=1000;
 % sys=change_adv(sys,'1deca',110);
 sys=change_adv(sys,'2dtca',6152);
 
+% sys.critname='pendtst';
+sys.crit=@(od,d)true;
+sys.hmax=100;
+sys.k=2;
+sys=change_adv(sys,'pendulum2',[1,0.01]);
 [s,tsiz]=sample(sys);
 figure(sys.fnum)
 imagesc(s);

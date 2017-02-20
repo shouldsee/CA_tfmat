@@ -95,11 +95,47 @@ if strncmp(familyname,'2dtca',5);
 end
 
 if strncmp(familyname,'pendu',5);
-    damping=params(1);
+    tmin=@(c) min(1-c,c);
+    dampk=params(1);
     dt=params(2);
-    localincr=@(a)tdmethod(@pendulum,a,dt);
-    sys.adv=@(a,horizon) a+localincr(a);
-    sys.dst=@(a,b) abs(a(:,1)-b(:,1));
+    if familyname=='pendulum1';
+    localincr=@(a)RK4(@(x)pendulum(x,dampk),a,dt);
+    sys.sizf=@(sys)2;
+    sys.dst=@(a,b)  tmin(abs(a(:,1)-b(:,1))+abs(a(:,2)-b(:,2)));
+    
+    elseif familyname=='pendulum2';
+    localincr=@(a)RK4(@(x)pendulum2(x,dampk),a,dt);
+    sys.sizf=@(sys)2;
+    sys.dst=@(a,b)  tmin(sum(abs(a(:,1)-b(:,1)),2));
+    end
+        
+    sys.adv=@(a,horizon) mod(a+localincr(a),[1 0]);
+%     sys.dst=@(a,b) abs(a(:,1)-b(:,1));
+    
+%     dst_pre=@(a,b) sum(abs(a(:,1)-b(:,1)),2);
+    sys.alias=sprintf('pendulum damp=%3.2d dt=%3.2d',dampk,dt);
+%     sys.rdf=@(siz)(5--5)*rand(siz)+-5;
+    sys.rdf=@(siz)rand(siz);
+    
+    
+end
+    
+if strncmp(familyname,'berno',5);
+    tmin=@(c) min(1-c,c);
+    k1=params(1);
+    dt=params(2);
+    sys.adv=@(a,horizon)mod(k1*a,dt);
+    sys.sizf=@(sys)1;
+    sys.dst=@(a,b)  tmin(sum(abs(a-b),2));
+        
+%     sys.dst=@(a,b) abs(a(:,1)-b(:,1));
+    
+%     dst_pre=@(a,b) sum(abs(a(:,1)-b(:,1)),2);
+    sys.alias=sprintf('bernoulli map damp=%3.2d dt=%3.2d',k1,dt);
+%     sys.rdf=@(siz)(5--5)*rand(siz)+-5;
+    sys.rdf=@(siz)dt*rand(siz);
+    
+    
 end
     
 %% set randomization and distance functions
@@ -117,6 +153,7 @@ if strcmp(familyname(end-1:end),'ca');
    
 end
 
+sys.familyname=familyname;
 
 end
 
