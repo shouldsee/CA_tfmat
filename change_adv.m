@@ -91,10 +91,17 @@ if strncmp(familyname,'2dtca',5);
         end
         alias=[alias,num2str(mod(i-1,9))];
     end
-        
     sys.alias=alias;
 end
 
+if strncmp(familyname,'pendu',5);
+    damping=params(1);
+    dt=params(2);
+    localincr=@(a)tdmethod(@pendulum,a,dt);
+    sys.adv=@(a,horizon) a+localincr(a);
+    sys.dst=@(a,b) abs(a(:,1)-b(:,1));
+end
+    
 %% set randomization and distance functions
 
 if strcmp(familyname(end-2:end),'log');
