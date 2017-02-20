@@ -62,3 +62,18 @@ figure(1)
 imagesc([pdata(ol,idx),pdata(:,idx)]');
 figure(2)
 imagesc([dmat dmatod])
+
+%%
+
+%%
+ts=linspace(0,10,1000);
+dof0=[pi,-0.125]';
+dofs=odesolver(@pendulum,dof0,ts,@RK4);
+figure(1)
+hold on
+% scatter(dofs(1,:),dofs(,2),3,'x');
+xs=mod(dofs(1,:),2*pi);
+ys=(dofs(2,:));
+scatter3(ts,xs,ys,3,'x');
+% ylim([-1,1])
+% zlim([-1 1])
