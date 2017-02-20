@@ -1,0 +1,27 @@
+//1 to 81 is nan
+// 81 to 129
+//scanning 130 to 600
+>> apg-searchable rules
+241612G
+232616G
+
+>> non-searchable rules
+15923GF
+31835GF
+81087G
+24304?
+15485GPE
+245729?
+61599G
+19399-?
+54655RE
+3491P
+72008LE
+69215PE
+6677GPE*
+85064LE*
+77727RE
+42271GE
+8123GE
+
+>>constrained_rules

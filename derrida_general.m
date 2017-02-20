@@ -52,9 +52,9 @@ aspect=hmax/(k+5+hmax)+.2;
 ht=.6;
 set(fh1,'units','normalized','position',[.0 1 ht ht*aspect]);
 f1=imagesc(zeros(sys0.hmax,sys0.hmax+5+sys0.k));
-caxis([0 0.15])
 colorbar
 end
+caxis(f1.Parent,[0 0.3])
 
 if init
 order=0;ordernew=order;
