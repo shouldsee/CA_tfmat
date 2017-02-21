@@ -166,7 +166,7 @@ pdata=gather([dmat, 0.5*ones(sys.hmax,5),histo]);
 if ~silent && crit(ordernew,d)
 set(f1,'CData',pdata);
 alias=sprintf('%s-%s',sys.familyname,sys.alias);
-tl=sprintf('%4.3f-%s-%4.3d-order',ordernew,alias,od);
+tl=sprintf('%6.5f-%s-%4.3d-order',ordernew,alias,od);
 title(f1.Parent,tl)
 
     if sfig
