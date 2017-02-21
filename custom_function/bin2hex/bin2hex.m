@@ -10,7 +10,7 @@ dict='0123456789abcdef';
 hex=char(zeros(size(bin,1),hexlen));
 
 for i=1:hexlen;
-    hex(:,i)= (dict(sum(binv(:,i*4-3:i*4).*[1 2 4 8],2)+1));   
+    hex(:,i)= (dict(sum(binv(:,i*4-3:i*4).*[8 4 2 1],2)+1));   
 end
 
 x = hex;

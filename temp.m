@@ -5,7 +5,7 @@ sys.k=5000;
 % sys=change_adv(sys,'1deca',110);
 % s='00000000081003e81e89f78510';
 s=ntnumhex;
-sys=change_adv(sys,'2dntca',{s,0.5});
+sys=change_adv(sys,'2dntca',{s,0.5},env);
 
 % % sys.critname='pendtst';
 % sys.crit=@(od,d)true;
