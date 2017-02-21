@@ -1,22 +1,28 @@
 %%
-sys.hmax=100;
-sys.k=1000;
+sys.hmax=400;
+sys.k=5000;
 % sys=change_adv(sys,'log1d',3.9999);
 % sys=change_adv(sys,'1deca',110);
-sys=change_adv(sys,'2dtca',6152);
+% s='00000000081003e81e89f78510';
+s=ntnumhex;
+sys=change_adv(sys,'2dntca',{s,0.5});
 
-% sys.critname='pendtst';
-sys.crit=@(od,d)true;
-sys.hmax=100;
-sys.k=2;
-sys=change_adv(sys,'pendulum2',[1,0.01]);
-[s,tsiz]=sample(sys);
+% % sys.critname='pendtst';
+% sys.crit=@(od,d)true;
+% sys.hmax=100;
+% sys.k=200;
+% sys.N=5;
+% sys.fnum=5;
+% % sys=change_adv(sys,'pendulum2',[1,0.01]);
+[im,tsiz]=sample(sys);
 figure(sys.fnum)
-imagesc(s);
+ims=reshape(im,tsiz);
+for i=1:sys.hmax;
+imagesc(squeeze(ims(i,:,:)));
 caxis([0 1])
 drawnow
-pause
-
+pause(0.1)
+end
 %%
 [ods,idx]=sort(ods);
 Ws=Ws(idx,:,:,:);

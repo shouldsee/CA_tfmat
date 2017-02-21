@@ -87,7 +87,7 @@ end
 
 
 % sys0=change_adv(sys0,'1deca',lst(1));
-sys0=change_adv(sys0,familyname,[lst(1) dt]);
+sys0=change_adv(sys0,familyname,{lst{1} dt});
 %% initiate the configs;
 avi=(sys0.rdf([N sys0.sizf(sys0)]));
 bvi=(sys0.rdf([N sys0.sizf(sys0)]));
@@ -96,9 +96,9 @@ cvs0=(zeros(hmax,N));
 
 for odi =1:numel(lst(:)); %% od for "override"
 % parfor odi =1:numel(lst(:)); %% od for "override"
-    od=lst(odi);
+    od=lst{odi};
     sys=sys0;
-   sys=change_adv(sys,familyname,[od dt]);
+   sys=change_adv(sys,familyname,{od dt});
 
 %% record order and decide whether a plot should be saved
 % if exp(ordernew)>rand(1,1)
@@ -166,7 +166,7 @@ pdata=gather([dmat, 0.5*ones(sys.hmax,5),histo]);
 if ~silent && crit(ordernew,d)
 set(f1,'CData',pdata);
 alias=sprintf('%s-%s',sys.familyname,sys.alias);
-tl=sprintf('%4.3f-%s-%4.3d-order',ordernew,alias,od);
+tl=sprintf('%4.3f-%s-%s-order',ordernew,alias,num2str(od);
 title(f1.Parent,tl)
 
     if sfig
@@ -179,7 +179,7 @@ end
 
 fprintf(fopen(logfname,'a'),'%d\t%s\t%s\t\t\n',od,ordernew,sys.alias);
 fprintf('%d\t%d\t%d\t%f\t%f\t%s\n',odi,od,horizon,ordernew,order,sys.alias)
-hmap(2,cvs,30,)
+% hmap(2,cvs,10,1);
 drawnow 
 end
 if pau;

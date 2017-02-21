@@ -1,11 +1,16 @@
 
 function[sys,funcs]=change_adv(sys0,familyname,params);
+global env
 % struct('adv','rdf','sizf', 'crit',...
 % {@, @, @, @,});
 % coder.extrinsic('sprintf');
-% sys.alias=sprintf('%d',params(1));
+% sys.alias=sprintf('%d',params{1});
 sys=sys0;
-sys.od=params(1);
+
+sys.od=params{1};
+try
+dt=params{2};
+end
 covmd='same';
 usegpu=0;
     
@@ -54,12 +59,12 @@ sys.adv=@(a,horizon)logistic(convopt(torus(a)));
 end
     
 if strncmp(familyname,'1dlog',5);
-    sys.adv=adv_log1d_torus(params(1));
+    sys.adv=adv_log1d_torus(params{1});
 end
 
 
 if strncmp(familyname,'1deca',5);
-    rnum=params(1);
+    rnum=params{1};
     fir=2.^(2:-1:0);
     fir=2.^(0:2);
     if usegpu;
@@ -72,7 +77,7 @@ end
 
 
 if strncmp(familyname,'2dtca',5);
-    rnum=params(1);
+    rnum=params{1};
     fir=shiftdim([1 1 1;
                   1 9 1;
                   1 1 1],-1);
@@ -81,7 +86,7 @@ if strncmp(familyname,'2dtca',5);
     end
   
     rule=flip(dec2base(rnum,2,18)-'0');
-    sys.adv=@(a,horizon)rule(convn(round(torus(a)),fir,covmd)+1);
+    sys.adv=@(a,horizon)rule((convn(round(torus(a)),fir,covmd)+1));
     alias='b';
     ps=1;
     for i=find(rule);
@@ -94,10 +99,25 @@ if strncmp(familyname,'2dtca',5);
     sys.alias=alias;
 end
 
+if strncmp(familyname,'2dntca',5);
+    %%take a hexadecimal rule string
+    s=params{1};
+    ntnum1=(hex2bin(s));
+    ntnumt=ntnum1(1:102);
+    rule=flip(ntnumt-'0');
+    
+    fir=reshape(2.^(0:8),1,3,3);
+    if usegpu
+        fir=gpuArray(fir);
+    end
+    pj=env.rca2ntca;
+    sys.adv=@(a,horizon)rule(pj(1+convn(round(torus(a)),fir,covmd)));  
+    sys.alias=ntrule2alias(rule);
+end
+
 if strncmp(familyname,'pendu',5);
     tmin=@(c) min(1-c,c);
-    dampk=params(1);
-    dt=params(2);
+    dampk=params{1};
     if familyname=='pendulum1';
     localincr=@(a)RK4(@(x)pendulum(x,dampk),a,dt);
     sys.sizf=@(sys)2;
@@ -122,8 +142,7 @@ end
     
 if strncmp(familyname,'berno',5);
     tmin=@(c) min(1-c,c);
-    k1=params(1);
-    dt=params(2);
+    k1=params{1};
     sys.adv=@(a,horizon)mod(k1*a,dt);
     sys.sizf=@(sys)1;
     sys.dst=@(a,b)  tmin(sum(abs(a-b),2));
