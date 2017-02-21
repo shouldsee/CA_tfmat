@@ -103,7 +103,7 @@ if strncmp(familyname,'2dntca',5);
     %%take a hexadecimal rule string
     s=params{1};
     ntnum1=(hex2bin(s));
-    ntnumt=ntnum1(1:102);
+    ntnumt=ntnum1(end-101:end);
     rule=flip(ntnumt-'0');
     
     fir=reshape(2.^(0:8),1,3,3);

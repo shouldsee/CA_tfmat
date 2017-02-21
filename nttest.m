@@ -8,7 +8,7 @@ ntrule=zeros(102,1);
 ntrule(ntidx)=1;
 % ntrule=flip(ntrule);
 ntnum=char(flip(ntrule')+'0');
-ntnumhex=bin2hex(ntnum,'post');
+ntnumhex=bin2hex(ntnum,'pre');
 atab=henseldict(ntrule==1,:);
 [atabs,ind]=sortrows(atab);
 alias=char();
