@@ -3,7 +3,7 @@ function [ alias ] = nthex2alias( s )
 %   Detailed explanation goes here
 
     ntnum1=(hex2bin(s));
-    ntnumt=ntnum1(end-101:end);
+    ntnumt=ntnum1(1:102);
     rule=flip(ntnumt-'0');
     alias=ntrule2alias(rule);
 end
