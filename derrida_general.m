@@ -4,7 +4,7 @@ hmax=200;
 k=200;
 % familyname='2dtca';
 fnum=1;
-sys0=sys;
+% sys0=sys;
 dt=1;
 
 fields = fieldnames(sys0, '-full');
@@ -87,18 +87,20 @@ end
 
 
 % sys0=change_adv(sys0,'1deca',lst(1));
-sys0=change_adv(sys0,familyname,{lst(1,:) dt});
+sys0=change_adv(sys0,familyname,{lst(1,:) dt},env);
 %% initiate the configs;
 avi=(sys0.rdf([N sys0.sizf(sys0)]));
 bvi=(sys0.rdf([N sys0.sizf(sys0)]));
 histo0=(repmat(avi(1,:),[hmax,1]));
 cvs0=(zeros(hmax,N));
 
-for odi =1:size(lst,1); %% od for "override"
+% for odi =1:size(lst,1); %% od for "override"
+parfor odi =1:size(lst,1); %% od for "override"
+    
 % parfor odi =1:numel(lst(:)); %% od for "override"
     od=lst(odi,:);
     sys=sys0;
-   sys=change_adv(sys,familyname,{od dt});
+   sys=change_adv(sys,familyname,{od dt},env);
 
 %% record order and decide whether a plot should be saved
 % if exp(ordernew)>rand(1,1)
@@ -163,11 +165,11 @@ pdata=gather([dmat, 0.5*ones(sys.hmax,5),histo]);
 
 
 %% plot and save the profile
-if ~silent && crit(ordernew,d)
+if ~silent && sys.crit(ordernew,d)
 set(f1,'CData',pdata);
 alias=sprintf('%s-%s',sys.familyname,sys.alias);
 % tl=sprintf('%6.5f-%s-%s-order',ordernew,alias,num2str(od));
-tl=sprintf('%6.5f-%s-order',ordernew,num2str(od));
+tl=sprintf('%6.5f-%s-order-batch%d',ordernew,num2str(od),bchi);
 title(f1.Parent,tl)
 
     if sfig

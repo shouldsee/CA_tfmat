@@ -1,16 +1,22 @@
 profile off
 profile on
 
+findhfir;
+samplesys
+sys0=sys;
 sprev = rng(0,'v5uniform');
-total=2^18;bchsize=2^4;bmax=1000;
+total=2^18;bchsize=2^8;bmax=2^10;
 
 lst0=randi([0 1],[total,102]);
 % idx=randperm(size(lst0,1));
 % lst0=lst0(idx,:);
-sys.familyname='2dntca';
+sys0.familyname='2dntca';
 lst0=bin2hex(char(lst0+'0'),'post');
-sys.critname='seed0';
+sys0.critname='seed0';
 % sys0.critname='cov_seq_v0';
+if ~exist('bchi','var');
+bchi=1;
+end
 bchi0=bchi;
 % sys0.crit=@(odr,d) odr>0.4 && min(d)<0.7;;
 sys0.crit=@(odr,d)true;

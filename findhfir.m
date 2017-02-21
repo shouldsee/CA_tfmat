@@ -154,8 +154,36 @@ hfir=cat(3,hfir,hfir1);
 
 eigen=sum(sum(hfir.*rvct,1),2);
 eigen=squeeze(eigen);
-[~, ind] = unique(proj(eigen+1));
 eind=eigen+1;
+
+
+configs=reshape((dec2base(0:2^9-1,2,9)-'0')',3,3,[]);
+compress=@(a)sum(sum(a,1),2);
+
+%%
+firs=[];
+rvctx=flip(rvct,1);
+rvcty=flip(rvct,2);
+% rvct=padarray(rvct,[1 1],0,'post');
+% rvctx=padarray(rvctx,[1 1],0,'post');
+% rvcty=padarray(rvcty,[1 1],0,'post');
+for i=1:4;
+%     firs=cat(3,firs,rot90(rvct,i),rot90(rvctx,i),rot90(rvcty,i));
+    firs=cat(4,firs,rot90(rvct,i),rot90(rvctx,i));
+end
+
+%%
+
+
+eigen0=squeeze(compress(configs.*rvct));
+% [~,ind0]=unique(eigen0);
+% size(ind0);
+[seigen0,sidx]=sort(eigen0,'ascend');
+eigen=squeeze(min(compress(configs.*firs),[],4));
+[ueigen, ind] = unique(eigen);
+% uind=
+ueigen2idx=sum((1:512==(ueigen+1)).*(1:102)',1);
+
 
 hfir=configs(:,:,ueigen+1);
 perhfir=permute(hfir,[1 3 2]);
@@ -189,36 +217,6 @@ ntrule(rpre)=1;
 ntnum=char(flip(ntrule')+'0');
 ntnumhex=bin2hex(ntnum,'post');
 
-% ntnum=sum(ntrule.*2.^(0:101)');
-rule(uproj(ntrule==1))=1;
-rnum=char(rule'+'0');
-%%
-firs=[];
-rvctx=flip(rvct,1);
-rvcty=flip(rvct,2);
-% rvct=padarray(rvct,[1 1],0,'post');
-% rvctx=padarray(rvctx,[1 1],0,'post');
-% rvcty=padarray(rvcty,[1 1],0,'post');
-for i=1:4;
-%     firs=cat(3,firs,rot90(rvct,i),rot90(rvctx,i),rot90(rvcty,i));
-    firs=cat(4,firs,rot90(rvct,i),rot90(rvctx,i));
-end
-%  figure
-im=reshape(firs,4,[]);
-% imagesc(im)
-tfir=mean(firs,3);
-configs=reshape((dec2base(0:2^9-1,2,9)-'0')',3,3,[]);
-compress=@(a)sum(sum(a,1),2);
-
-eigen0=squeeze(compress(configs.*rvct));
-% [~,ind0]=unique(eigen0);
-% size(ind0);
-[seigen0,sidx]=sort(eigen0,'ascend');
-eigen=squeeze(min(compress(configs.*firs),[],4));
-[ueigen, ind] = unique(eigen);
-% uind=
-ueigen2idx=sum((1:512==(ueigen+1)).*(1:102)',1);
-
 
 % size(eigen)
 proj=eigen(sidx);
@@ -229,7 +227,15 @@ proj=proj+1;
 env.rca2ntca=sum((proj==a').*dict',2);;
 
 
-uproj=ind;
+% uproj=ind;
+% % ntnum=sum(ntrule.*2.^(0:101)');
+% rule(uproj(ntrule==1))=1;
+% rnum=char(rule'+'0');
+%%
+%  figure
+
+
+
 % proj=sum((eigen==ueigen').*ind',2);
 %%
 % k0=28;
