@@ -86,6 +86,7 @@ if strncmp(familyname,'2dtca',5);
     end
   
     rule=flip(dec2base(rnum,2,18)-'0');
+    sys.rule=rule;
     sys.adv=@(a,horizon)rule((convn(round(torus(a)),fir,covmd)+1));
     alias='b';
     ps=1;
