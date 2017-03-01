@@ -70,6 +70,9 @@ aspect=hmax/(k+5+hmax)+.02;
 ht=.6;
 set(fh1,'units','normalized','position',[.0 1 ht ht*aspect]);
 f1=imagesc(zeros(sys0.hmax,sys0.hmax+5+sys0.k));
+fh2=figure(2);
+set(fh2,'units','normalized','position',[.0 .5 .4 .4*16/9]);
+
 colorbar
 eval(setcolor)
 end
@@ -182,7 +185,8 @@ end
 
 fprintf(fopen(logfname,'a'),'%d\t%s\t%s\t\t\n',od,ordernew,sys.alias);
 fprintf('%d\t%d\t%d\t%f\t%f\t%s\n',odi,od,horizon,ordernew,order,sys.alias)
-% hmap(2,cvs,10,1);
+hmap(2,cvs,10,1);
+saveas(2,[gdir,tl,'_detailcorr.jpg']);
 drawnow 
 end
 if pau;

@@ -10,7 +10,7 @@ dict(sys0.od+1)=1;
 
 % any(cellfun(@(x) isequal(x, 6152), nodes))
 %%
-imax=50;
+imax=10;
 while true
     dmat(dmat==0)=inf;
 for i=1:imax;
@@ -47,39 +47,26 @@ for i=1:imax;
     end 
     fprintf('%d of %d, d=%d \n',i,imax,d);
 end
-save('tmp');
 
-% % dmat(dmat==0)=inf;
-% nnodes=max(size(nodes));
-% edgemat=1-dmat(1:nnodes,1:nnodes);
-% 
-% % % edgemat=dmat(1:nnodes,1:nnodes);
-% edgemat(edgemat==1)=0;
-% edgemat(edgemat<0.6)=0;
-% G=graph(edgemat,nodes);
-% p=plot(G);
-% % G.Edges.LWidths = 7*(G.Edges.Weight-min(G.Edges.Weight))/(max(G.Edges.Weight)-min(G.Edges.Weight))+0.001;
-% G.Edges.LWidths=exp(3*(G.Edges.Weight-0.5));
-
-% p.LineWidth = G.Edges.LWidths;
-% layout(p,'force3')
-% labelnode(p,1:max(size(G.Nodes)),rnums)
-% drawnow
-end
-%%
-% labelnode(p,1:max(size(G.Nodes)),nodes)
 dmat=padarray(dmat,max(size(dmat))-size(dmat),inf,'post');
 dmat(isinf(dmat) | isnan(dmat))=0;
 dmat=(dmat+dmat')/2;
+% dmat(dmat==0)=inf;
 nnodes=max(size(nodes));
 edgemat=1-dmat(1:nnodes,1:nnodes);
 
 % % edgemat=dmat(1:nnodes,1:nnodes);
 edgemat(edgemat==1)=0;
-edgemat(edgemat<0.55)=0;
+edgemat(edgemat<0.6)=0;
 G=graph(edgemat,nodes);
 p=plot(G);
+% G.Edges.LWidths = 7*(G.Edges.Weight-min(G.Edges.Weight))/(max(G.Edges.Weight)-min(G.Edges.Weight))+0.001;
 G.Edges.LWidths=exp(3*(G.Edges.Weight-0.5));
+
 p.LineWidth = G.Edges.LWidths;
-layout(p,'force')
-labelnode(p,1:max(size(G.Nodes)),rnums)
+% layout(p,'force3')
+% labelnode(p,1:max(size(G.Nodes)),rnums)
+% drawnow
+end
+%%
+labelnode(p,1:max(size(G.Nodes)),nodes)

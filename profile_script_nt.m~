@@ -1,6 +1,6 @@
 profile off
 profile on
-%%
+
 findhfir;
 samplesys
 sys0=sys;
@@ -13,7 +13,6 @@ lst0=randi([0 1],[total,102]);
 sys0.familyname='2dntca';
 lst0=bin2hex(char(lst0+'0'),'pre');
 sys0.critname='seed0_fixed';
-sys0.critname='seed0_detailed';
 % sys0.critname='cov_seq_v0';
 if ~exist('bchi','var');
 bchi=1;
@@ -38,20 +37,12 @@ end
 profile viewer
 profsave
 %%
-sys0.critname='tst_typicals';
 
 t=readtable('./Annotations/typicals.csv','ReadVariableNames',0);
 m=table2array(t(:,1));
-lst=char();
-for i=1:size(m,1);
-    lst(i,:)=m{i};
-endsys0.critname='tst_typicals';
-%%
-t=readtable('./Annotations/top50s.csv','ReadVariableNames',0);
-m=table2array(t(:,1));
-lst=char();
+lst=[];
 for i=1:size(m,1);
     lst(i,:)=m{i};
 end
-%%
-derrida_general
+
+

@@ -26,7 +26,7 @@ while horizon<sys.hmax;
     horizon=horizon+1;    
 	ablur=convn(avc,h,'same');
 	bblur=convn(bvc,h,'same');
-    cvc=mean(corr(ablur(:),bblur(:)));
+    cvc=mean(abs(corr(ablur(:),bblur(:))));
     
 %     cvc=sys.dst(avc,bvc);
     avcnew=(sys.adv(avc,horizon));
@@ -54,4 +54,4 @@ end
 % sys0.alias
 % plot(cvs)
 % drawnow 
-d=1/mean(cvs);
+d=1-mean(cvs);

@@ -36,10 +36,9 @@ caxis auto;
 subplot(2,2,3)
 fi2=imagesc(im2);
 subplot(2,2,4)
-h=histogram(im2(:)+1,0:0.05:1,'Norm','pdf');
-ylim([0 30])
-% set(h.Parent,'YScale','log')
-% set(h.Parent,'YLim',10^5);
+h=histogram(im2(:)+1,0:0.05:1);
+set(h.Parent,'YScale','log')
+set(h.Parent,'Y','log')
 avc=avi;
 avs=[];
 i=1;
