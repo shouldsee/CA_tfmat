@@ -1,7 +1,13 @@
-samplesys
-[pdata,rec,tl,sys1]=sys_derrida(sys);
-figure(1);
-imagesc(pdata);
+
+sys0=sys00;
+sys=change_adv(sys,'2dtca',{r2(6153),0.5},0);
+
+finddst(sys0,sys)
+%%
+% samplesys
+% [pdata,rec,tl,sys1]=sys_derrida(sys);
+% figure(1);
+% imagesc(pdata);
 %%
 %     torus2=@(a)[a(:,end,:),a,a(:,1,:)];
 %     torus1=@(a)cat(3,a(:,:,end),a,a(:,:,1));

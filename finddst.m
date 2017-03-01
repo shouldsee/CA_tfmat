@@ -24,10 +24,10 @@ idx=sub2ind(size(avc),xs,ys,zs);
 while horizon<sys.hmax;
 %     if pau; fprintf('%d\t%d\n',od,horizon);    end
     horizon=horizon+1;    
-	ablur=convn(avc,h,'same');
-	bblur=convn(bvc,h,'same');
-    cvc=mean(abs(corr(ablur(:),bblur(:))));
-    
+	ablur=convn(avc-.5,h,'same');
+	bblur=convn(bvc-.5,h,'same');
+%     cvc=max( abs( [corr(ablur(:),bblur(:)) corr(ablur(:),-bblur(:))] )  );
+    cvc= abs( [corr(ablur(:),bblur(:))]);
 %     cvc=sys.dst(avc,bvc);
     avcnew=(sys.adv(avc,horizon));
     bvcnew=(sys0.adv(bvc,horizon));
