@@ -73,7 +73,7 @@ fprintf('expanding %d......',sys0.od)
     sys0=change_adv(sys0,'2dtca',{randi([0 2^18-1]),0.5},0);
     k=k+1;
     if k==5;
-        save('tmp1');
+%         save('tmp1');
         k=0;
     end
 fprintf('done\n')
@@ -163,13 +163,13 @@ end
 % % drawnow
 % end
 %%
-figure(1)
-cap=1000;
-% labelnode(p,1:max(size(G.Nodes)),nodes)
-dmat=padarray(dmat,max(size(dmat))-size(dmat),inf,'post');
-dmat(isinf(dmat) | isnan(dmat))=0;
-dmat=(dmat+dmat')/2;
-% nnodes=min(max(size(nodes)),cap);
+% figure(1)
+% cap=1000;
+% % labelnode(p,1:max(size(G.Nodes)),nodes)
+% dmat=padarray(dmat,max(size(dmat))-size(dmat),inf,'post');
+% dmat(isinf(dmat) | isnan(dmat))=0;
+% dmat=(dmat+dmat')/2;
+% % nnodes=min(max(size(nodes)),cap);
 % edgemat=1-dmat(1:nnodes,1:nnodes);
 
 % % edgemat=dmat(1:nnodes,1:nnodes);
@@ -181,23 +181,31 @@ dmat=(dmat+dmat')/2;
 % dmat=(dmat+dmat')/2;
 figure(1)
 nodes=rnums;
-edgemat=dmat;
+edgemat=(dmat+dmat')/2;
 edgemat(edgemat>0.43)=0;
-isobool=sum(edgemat,1)==0;
-nodeidx=find(1-isobool);
+isobool=(sum(edgemat,1))==0;
+nidx=find(1-isobool);
+%%
+cap=4000;
+nodeidx=nidx(1:min(cap,numel(nidx)));
 [xs,ys]=ndgrid(nodeidx,nodeidx);
 idx=sub2ind([2^18,2^18],xs,ys);
-emat=full(edgemat(idx));
+emat=(edgemat(idx));
 nodes=cellstr(num2str(rnums(nodeidx)'));
-G=graph(emat,nodes,'upper','OmitSelfLoops')
+% G=graph(emat,nodes,'upper','OmitSelfLoops')
+G=graph(emat,nodes,'OmitSelfLoops')
 % G=graph(emat,);
 % G=rmnode(G,find(isobool));
+G.Edges.LWidths=sig(3*-(G.Edges.Weight-0.43));
+%%
+
 p=plot(G);
-G.Edges.LWidths=exp(3*(G.Edges.Weight-0.5));
 p.LineWidth = G.Edges.LWidths;
 layout(p,'force')
 labelnode(p,1:max(size(G.Nodes)),nodes);
 highlight(p,[1],'NodeColor','g','MarkerSize',10)
+%%
+graph2visjs(G,'BSatlas4000node.js')
 %%
 irule=zeros(1,18);
 r1=(0:2^18-1)';
