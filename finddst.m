@@ -39,6 +39,7 @@ if horizon~=sys.hmax;
     bvc=bvcnew;
     continue
 end
+
 end
 
 %% calculate and arrange the profile 
@@ -51,7 +52,7 @@ end
 % 
 % pdata=gather([dmat, 0.5*ones(sys.hmax,5),histo]);
 % hmap(2,cvs,10,1);
-% sys0.alias
-% plot(cvs)
+sys0.alias
+plot(cvs)
 % drawnow 
 d=1-mean(cvs);
