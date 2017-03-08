@@ -1,0 +1,31 @@
+var nodes=[ 
+{id:1, value:6, label:'43711',  }, 
+{id:2, value:4, label:'43967',  }, 
+{id:3, value:3, label:'43455',  }, 
+{id:4, value:3, label:'43966',  }, 
+{id:5, value:3, label:'43454',  }, 
+{id:6, value:33, label:'43199', color:'green' }, 
+{id:7, value:3, label:'43198',  }, 
+{id:8, value:3, label:'43710',  }, 
+{id:9, value:1, label:'10431',  }, 
+{id:10, value:1, label:'44223',  }, 
+{id:11, value:100, label:' 6152',color:'orange'}, 
+];
+var edges=[ 
+{from:1, to:2, value: 1.165, title :' 0.051'}, 
+{from:1, to:6, value: 4.291, title :' 0.486'}, 
+{from:1, to:7, value: 1.224, title :' 0.067'}, 
+{from:1, to:8, value: 1.307, title :' 0.089'}, 
+{from:1, to:9, value: 1.318, title :' 0.092'}, 
+{from:1, to:10, value: 1.292, title :' 0.085'}, 
+{from:2, to:3, value: 4.802, title :' 0.523'}, 
+{from:2, to:4, value: 1.437, title :' 0.121'}, 
+{from:2, to:5, value: 1.195, title :' 0.059'}, 
+{from:3, to:4, value: 1.270, title :' 0.080'}, 
+{from:3, to:5, value: 1.458, title :' 0.126'}, 
+{from:4, to:5, value: 4.462, title :' 0.499'}, 
+{from:6, to:7, value: 1.338, title :' 0.097'}, 
+{from:6, to:8, value: 1.193, title :' 0.059'}, 
+{from:7, to:8, value: 3.398, title :' 0.408'}, 
+];
+var seq0batch256_sub0_BSatlas11node = { nodes:nodes,edges:edges};

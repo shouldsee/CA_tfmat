@@ -5,7 +5,7 @@ findhfir;
 samplesys
 sys0=sys;
 sprev = rng(0,'v5uniform');
-total=2^18;bchsize=2^8;bmax=2^10;
+total=2^18;bchsize=2^9;bmax=2^9;
 
 lst0=randi([0 1],[total,102]);
 % idx=randperm(size(lst0,1));
@@ -14,6 +14,8 @@ sys0.familyname='2dntca';
 lst0=bin2hex(char(lst0+'0'),'pre');
 sys0.critname='seed0_fixed';
 sys0.critname='seed0_detailed';
+sys=sys0;
+sys00=sys0;
 % sys0.critname='cov_seq_v0';
 if ~exist('bchi','var');
 bchi=1;
@@ -31,7 +33,8 @@ mlst0=reshape(lst0,[bchmax bchsize 26]);
 for bchi=bchi0:bmax
 fprintf('batch %d of %d\n',bchi,bmax)    
 lst=squeeze(mlst0(bchi,:,:));
-derrida_general
+% derrida_general
+densifluct
 end
 
 %%
@@ -45,6 +48,7 @@ m=table2array(t(:,1));
 lst=char();
 for i=1:size(m,1);
     lst(i,:)=m{i};
+end
 endsys0.critname='tst_typicals';
 %%
 t=readtable('./Annotations/top50s.csv','ReadVariableNames',0);

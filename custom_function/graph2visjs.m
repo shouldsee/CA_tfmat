@@ -9,14 +9,22 @@ lbl2idx = containers.Map(nodeSet,idxSet);
 % dict=zeros(1,numnode);
 % str2num(cell2mat(G.Nodes{:,1}))
 fprintf(fid,'var nodes=[ \n');
+cols={'','color:''green''','color:''red''','color:''green'''};
 for i=1:numnode
     node=G.Nodes{i,1};
-    
+    try
+    seed=G.Nodes{i,2};
+    dense=G.Nodes{i,3};
+    catch
+        seed=0;
+        dense=0;
+    end
     if str2num(node{1})==6152;
     fprintf(fid,'{id:%d, value:%d, label:''%s'',color:''orange''}, \n',i,G.degree(i)+100,G.Nodes{i,1}{1});
     
     else
-    fprintf(fid,'{id:%d, value:%d, label:''%s''}, \n',i,G.degree(i),G.Nodes{i,1}{1});
+%     fprintf(fid,'{id:%d, value:%d, label:''%s'', %s }, \n',i,G.degree(i)+30*seed,G.Nodes{i,1}{1},cols{seed+1});
+    fprintf(fid,'{id:%d, value:%d, label:''%s'', %s }, \n',i,G.degree(i)+30*seed,G.Nodes{i,1}{1},cols{seed+1+dense*2});
     end
 end
 fprintf(fid,'];\n');

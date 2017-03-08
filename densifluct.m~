@@ -1,0 +1,89 @@
+samplesys
+sys.N=500;
+sys.k=600;
+sys.hmax=200;
+try
+sys=change_adv(sys,'2dtca',{od00,0.5});
+catch
+    od00=39007;
+sys=change_adv(sys,'2dtca',{od00,0.5});
+end
+sys0=sys;
+critname='tst';
+
+try
+    gdir=[getenv('repos'),'/gallery/densicorr_profile/',sys.familyname,'/',critname,'/'];
+    sfig=1;
+    mkdir(gdir);
+    logfname=[gdir,'log.csv'];
+    logid=fopen(logfname,'a');
+    fprintf(logid,'print some thing here \n');
+    fprintf(logid,'%s\t%s\t%s\t\t\n','canonical_name','order','alias');
+catch
+    sfig=0;
+    fprintf('img storage:cannot find $repos in env or failed to create subfolder in $repos \n')
+end
+%%
+
+
+for od=
+sys0=change_adv(sys,'2dtca',{od00,0.5});
+
+syss=sys0;
+avc=avi;
+intl=6;
+avi=sys0.rdf([1 sys0.N sys0.sizf(sys0)]);
+avk=repmat(avi,[intl,1]);
+avck=repmat(avi,[ceil(sys.hmax/intl) 1]);
+fi=imagesc(squeeze(mean(avk(:,1,:,:),1)));
+caxis([0 1])
+for horizon=1:ceil(sys.hmax/intl)*intl+1;
+    avc(:,:,:,:)=syss.adv(squeeze(avc(:,:,:,:)),horizon);
+    k=mod(horizon,intl)+1;
+    avk(k,:,:,:)=avc;
+    if k==intl
+%     imagesc(squeeze(avc(1,:,:)));
+    ii=ceil(horizon/intl);
+    avck(ii,:,:,:)=mean(avk,1);
+    squeeze(mean(avk(:,1,:,:),1));
+%     set(fi,'CData',squeeze(mean(avk(:,1,:,:),1)));
+%     drawnow
+    end
+end
+
+
+%%
+siz=size(avck);
+avckm=reshape(avck,siz(1),[]);
+
+% im=hmap(2,avckm,siz(1),1);
+pd=pdist(avckm,'corr');
+spd=squareform(pd);
+
+% d=pdist((cvs),'corr');
+pd=max(max(pd(:)),1)-pd;
+spd=squareform(pd);
+stds=std(avckm,[],2);
+dmat=sqrt(spd.*stds.*stds');
+
+figure(2)
+fcor=imagesc(spd);
+
+densistd=std(avckm(end,:));
+densi=mean(avckm(end,:));
+
+alias=sprintf('%s-%s',sys.familyname,sys.alias);
+tl=sprintf('%.4f-std__%.4f-densi__%.4f-mcov__%.4f-%s__%d',densistd,densi,mean(spd(:)),alias,sys.od);title(tl);
+
+% tl=sprintf('%6.5f-%s-%s-order',ordernew,alias,num2str(od));
+% tl=sprintf('%6.5f-%s-order-batch%d',ordernew,num2str(od),bchi);
+title(fcor.Parent,tl)
+
+if sfig
+%     frame = getframe(fnum);
+%     fname=[gdir,tl,'_corrprofile.jpg'];
+%     saveas(fh1,fname);
+    saveas(2,[gdir,tl,'.jpg']);
+    % savefig(fh1,[gdir,alias,'_corrprofile.jpg']);
+end
+% saveas(2,[gdir,tl,'_detailcorr.jpg']);

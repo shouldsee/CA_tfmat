@@ -1,0 +1,31 @@
+var nodes=[ 
+{id:1, value:6, label:' 37260',  }, 
+{id:2, value:6, label:'102540',  }, 
+{id:3, value:5, label:'168332',  }, 
+{id:4, value:5, label:'168076',  }, 
+{id:5, value:35, label:'233612', color:'green' }, 
+{id:6, value:5, label:' 37004',  }, 
+{id:7, value:4, label:'102796',  }, 
+{id:8, value:100, label:'  6152',color:'orange'}, 
+];
+var edges=[ 
+{from:1, to:2, value: 1.046, title :' 0.015'}, 
+{from:1, to:3, value: 5.131, title :' 0.545'}, 
+{from:1, to:4, value: 1.789, title :' 0.194'}, 
+{from:1, to:5, value: 1.046, title :' 0.015'}, 
+{from:1, to:6, value: 2.856, title :' 0.350'}, 
+{from:1, to:7, value: 1.063, title :' 0.020'}, 
+{from:2, to:3, value: 1.068, title :' 0.022'}, 
+{from:2, to:4, value: 1.049, title :' 0.016'}, 
+{from:2, to:5, value: 4.850, title :' 0.526'}, 
+{from:2, to:6, value: 1.040, title :' 0.013'}, 
+{from:2, to:7, value: 2.967, title :' 0.362'}, 
+{from:3, to:4, value: 2.924, title :' 0.358'}, 
+{from:3, to:6, value: 1.787, title :' 0.194'}, 
+{from:3, to:7, value: 1.058, title :' 0.019'}, 
+{from:4, to:5, value: 1.042, title :' 0.014'}, 
+{from:4, to:6, value: 5.445, title :' 0.565'}, 
+{from:5, to:6, value: 1.042, title :' 0.014'}, 
+{from:5, to:7, value: 1.849, title :' 0.205'}, 
+];
+var seed168333_BSatlas8node = { nodes:nodes,edges:edges};
