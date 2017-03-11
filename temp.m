@@ -17,7 +17,7 @@ sys=change_adv(sys,'2dntca',{s,0.5},env);
 jmax=500;
 [im_all,tsiz]=sample(sys);
 
-for odi=10:size(lst,1);
+for odi=1:size(lst,1);
     
     
     
@@ -53,7 +53,7 @@ im2=[avs(i,:,:)] ;
     set(fi2,'CData',squeeze(im2));
     set(h,'Data',im2(:));
 
-    avc=(sys.adv(avc,horizon));
+    avc=(sys.adv(avc,i));
     drawnow
     fprintf('step %d of %d, rnum %s \n',i,sys.hmax,od)
 %     pause(0.05)
