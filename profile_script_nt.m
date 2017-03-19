@@ -30,7 +30,7 @@ bchmax=total/bchsize;
 mlst0=reshape(lst0,[bchmax bchsize 26]);
 % bmax=1600;
 %%
-outfname='log8.csv';
+outfname='logA1.csv';
 outf=fopen(outfname,'w');
 %%
 for bchi=bchi:bmax

@@ -1,13 +1,13 @@
 
 samplesys
-% load('tmp','tca_list')
-% load('tmp','ntca_list')
+load('tmp','tca_list')
+load('tmp','ntca_list')
 % lst=ntca_list;
 sys=change_adv(sys,'2dtca',{6152,0.5},env);
 
 sys.familyname='2dntca';
-jmax=100;
-sys.k=800;
+jmax=600;
+sys.k=400;
 sys.hmax=100;
 sys0=sys;
 tmp=[];
@@ -47,7 +47,7 @@ odi=odi;
 
 
 k=0;
-for odi=odi:size(lst,1);
+parfor odi=odi:size(lst,1);
     od=lst(odi,:);
 sys=sys0;
 sys=change_adv(sys,sys.familyname,{od 0.5},env);
@@ -73,7 +73,7 @@ fir=reshape(2.^(0:9-1),1,3,3);
 %     recs(odi,:,:)=rec;
 % end
 % rec=zeros(sys.hmax,2)*nan;
-trans=2;
+trans=6;
 mtp=0;
 stp=0;
 
@@ -98,7 +98,7 @@ while i<sys.hmax;
     
     mtp=mean(smtmpnow(:));
     
-    stpmat=((smtmp(i-trans,:,:,:)-smtmp(i-10-trans,:,:,:))); 
+    stpmat=((smtmp(i-trans,:,:,:)-smtmp(i-trans-trans,:,:,:))); 
     stp=mean(abs(stpmat(:)))/abs(mean(stpmat(:)));
     end
 %     rec(i-2,:)=[mtp,stp];
@@ -134,7 +134,7 @@ end
 fprintf('step %d of %d, rnum %s \n',i,sys.hmax,num2str(od))
 % plot3(ax2,rec(:,1),rec(:,2),1:sys.hmax,'color',rand(1,3))
 % text(ax2,mtp,stp,i+1,num2str(od));
-fprintf(outf,'%f\t%f\t%d\t%s\t%d\n',mtp,stp,i,num2str(od),bchi);
+fprintf(fopen(outfname,'a'),'%f\t%f\t%d\t%s\t%d\n',mtp,stp,i,num2str(od),bchi);
 % drawnow
 % k=k+1;
 % if k==6;
