@@ -1,5 +1,6 @@
 %%
 global env
+env=[];
 env.henseldict=['b0_';
     'b1c';
     'b1e';

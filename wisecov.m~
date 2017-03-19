@@ -1,6 +1,0 @@
-function[COV]=wisecov(A,B);
-s=size(A,1);
-C=A.*B;
-c=mean(reshape(C,s,[]));
-a=meea
-end

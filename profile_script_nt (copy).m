@@ -30,9 +30,8 @@ bchmax=total/bchsize;
 mlst0=reshape(lst0,[bchmax bchsize 26]);
 % bmax=1600;
 %%
-outfname='log8.csv';
+outfname='log.csv';
 outf=fopen(outfname,'w');
-%%
 for bchi=bchi:bmax
 fprintf('batch %d of %d\n',bchi,bmax)    
 lst=squeeze(mlst0(bchi,:,:));
