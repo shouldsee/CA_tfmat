@@ -90,8 +90,10 @@ set(fcor,'CData',spd);
 densistd=std(avckm(end,:));
 densi=mean(avckm(end,:));
 
-alias=sprintf('%s-%s',sys.familyname,sys.alias);
-tl=sprintf('%.4f.mcov.%.4f.std.%.4f.densi.%s.%s',mean(spd(isfinite(spd))),densistd,densi,alias,num2str(sys.od));
+% alias=sprintf('%s-%s',sys.familyname,sys.alias);
+alias=sprintf('%s',sys.familyname);
+% tl=sprintf('%.4f.mcov.%.4f.std.%.4f.densi.%s.%s',mean(spd(isfinite(spd))),densistd,densi,alias,num2str(sys.od));
+tl=sprintf('%s.%.4f.mcov.%.4f.std.%.4f.densi.%s',num2str(sys.od),mean(spd(isfinite(spd))),densistd,densi,alias);
 
 % tl=sprintf('%6.5f-%s-%s-order',ordernew,alias,num2str(od));
 % tl=sprintf('%6.5f-%s-order-batch%d',ordernew,num2str(od),bchi);

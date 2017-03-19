@@ -7,7 +7,7 @@ findhfir;
 samplesys
 sys0=sys;
 sprev = rng(0,'v5uniform');
-total=2^18;bchsize=2^9;bmax=2^9;
+total=2^18;bchsize=2^8;bmax=2^10;
 
 lst0=randi([0 1],[total,102]);
 % idx=randperm(size(lst0,1));
@@ -30,9 +30,8 @@ bchmax=total/bchsize;
 mlst0=reshape(lst0,[bchmax bchsize 26]);
 % bmax=1600;
 %%
-outfname='log8.csv';
+outfname='log.csv';
 outf=fopen(outfname,'w');
-%%
 for bchi=bchi:bmax
 fprintf('batch %d of %d\n',bchi,bmax)    
 lst=squeeze(mlst0(bchi,:,:));
