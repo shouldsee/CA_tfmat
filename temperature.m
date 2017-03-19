@@ -1,7 +1,7 @@
 
 samplesys
-load('tmp','tca_list')
-load('tmp','ntca_list')
+% load('tmp','tca_list')
+% load('tmp','ntca_list')
 % lst=ntca_list;
 sys=change_adv(sys,'2dtca',{6152,0.5},env);
 
@@ -74,6 +74,8 @@ fir=reshape(2.^(0:9-1),1,3,3);
 % end
 % rec=zeros(sys.hmax,2)*nan;
 trans=2;
+mtp=0;
+stp=0;
 
 while i<sys.hmax;
     i=i+1;
