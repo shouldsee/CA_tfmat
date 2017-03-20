@@ -98,8 +98,14 @@ while i<sys.hmax;
     
     mtp=mean(smtmpnow(:));
     
-    stpmat=((smtmp(i-trans,:,:,:)-smtmp(i-trans-trans,:,:,:))); 
-    stp=mean(abs(stpmat(:)))/abs(mean(stpmat(:)));
+    stpmat=((smtmp(i-trans,:,:,:)-smtmp(i-trans-trans,:,:,:)));
+    a=mean(abs(stpmat(:)));
+    b=abs(mean(stpmat(:)))
+    stp=a-b;
+    stp1=mean(avcnew(:));
+    stp1=min(stp1,1-stp1);
+%     stp1=a+b;
+    
     end
 %     rec(i-2,:)=[mtp,stp];
 %     [mtp,stp]
@@ -115,7 +121,7 @@ while i<sys.hmax;
         im2=[];
 %         im2=[mean(tmp(i,:,:),1)] ;   
     end
-    if mean(tmp(:))<0.1 & i>20
+    if mtp<0.02 & i>20
         break
     end
 
@@ -134,7 +140,8 @@ end
 fprintf('step %d of %d, rnum %s \n',i,sys.hmax,num2str(od))
 % plot3(ax2,rec(:,1),rec(:,2),1:sys.hmax,'color',rand(1,3))
 % text(ax2,mtp,stp,i+1,num2str(od));
-fprintf(fopen(outfname,'a'),'%f\t%f\t%d\t%s\t%d\n',mtp,stp,i,num2str(od),bchi);
+% fprintf(fopen(outfname,'a'),'%f\t%f\t%d\t%s\t%d\n',mtp,stp,i,num2str(od),bchi);
+fprintf(fopen(outfname,'a'),'%d\t%s\t%d\t%f\t%f\t%f\n',bchi,num2str(od),i,mtp,stp,stp1);
 % drawnow
 % k=k+1;
 % if k==6;

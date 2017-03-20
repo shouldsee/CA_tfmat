@@ -30,9 +30,9 @@ bchmax=total/bchsize;
 mlst0=reshape(lst0,[bchmax bchsize 26]);
 % bmax=1600;
 %%
-outfname='logA5';
-% outfname='tstA5';
-outf=fopen(outfname,'a');
+% outfname='logA1.csv';
+outfname='logA2'
+outf=fopen(outfname,'w');
 %%
 for bchi=bchi:bmax
 fprintf('batch %d of %d\n',bchi,bmax)    
